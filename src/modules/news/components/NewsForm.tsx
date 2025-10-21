@@ -8,6 +8,7 @@ import { NewsData } from "../models/news.model"; // Import the data model
 const initialState: NewsData = {
   title: "",
   content: "",
+  author: "",
   authorId: "",
   description: "",
   category: "",

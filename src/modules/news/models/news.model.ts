@@ -7,6 +7,7 @@ export interface NewsData {
   title: string;
   content: string;
   author: string;
+  authorId: string;
   description?: string;
   category?: string;
   summary?: string;
