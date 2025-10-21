@@ -6,7 +6,7 @@ import type { Models } from "appwrite";
 export interface NewsData {
   title: string;
   content: string;
-  authorId: string;
+  author: string;
   description?: string;
   category?: string;
   summary?: string;

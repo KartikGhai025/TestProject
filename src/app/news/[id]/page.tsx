@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NewsService } from "@/modules/news/services/news.service";
-import { News } from "@/modules/news/types/news.types";
+import { News } from "@/modules/news/models/news.model";
 
 export default function NewsDetailPage() {
   const [news, setNews] = useState<News | null>(null);
