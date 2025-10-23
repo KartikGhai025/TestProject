@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Grid3X3,
@@ -153,6 +154,20 @@ const categories = [
 export default function CategoriesPage() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<string | null>(null)
+
+
+  // ✅ Prevent background scroll when drawer is open
+  useEffect(() => {
+    if (mobileDrawerOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileDrawerOpen])
 
   const handleCategoryClick = (category: typeof categories[0]) => {
     if (category.subcategories && category.subcategories.length > 0) {
