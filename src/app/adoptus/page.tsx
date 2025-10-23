@@ -41,6 +41,7 @@ const animals = [
 
 export default function AdoptUsPage() {
   return (
+    
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-white to-orange-100">
       {/* 🐾 Hero Section */}
       <section className="text-center py-20 px-6">

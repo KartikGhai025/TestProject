@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 
 import { motion, AnimatePresence } from "framer-motion"
 import {
+  Dog,
   Grid3X3,
   Smartphone,
   Laptop,
@@ -148,6 +149,14 @@ const categories = [
     count: "500",
     slug: "property",
     directUrl: "/property",
+  },
+   {
+    name: "Adopt Us",
+    icon: Dog,
+    color: "from-red-400 to-pink-600",
+    count: "500",
+    slug: "adoptus",
+    directUrl: "/adoptus",
   },
 ]
 
