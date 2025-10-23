@@ -1,125 +1,68 @@
-import * as React from "react"
+"use client"
+import { useEffect, useState } from "react"
 import * as Icons from "lucide-react"
+import { motion } from "framer-motion"
 import Link from "next/link"
 
-// Your active categories data
-const categories = [
-  { name: "Adopt Us", slug: "adopt-us", icon: "PawPrint", color: "#FF9F43" },
-  { name: "Blood Bank", slug: "blood-bank", icon: "Droplet", color: "#E74C3C" },
-  { name: "Doctors", slug: "doctors", icon: "Stethoscope", color: "#27AE60" },
-  {
-    name: "Cafes & Restaurants",
-    slug: "cafes-restaurants",
-    icon: "Coffee",
-    color: "#D35400",
-  },
-  { name: "Coaching", slug: "coaching", icon: "BookOpen", color: "#8E44AD" },
-  { name: "Colleges", slug: "colleges", icon: "GraduationCap", color: "#2980B9" },
-  {
-    name: "Emergency Services",
-    slug: "emergency-services",
-    icon: "AlertTriangle",
-    color: "#C0392B",
-  },
-  {
-    name: "Foodies Timeline",
-    slug: "foodies-timeline",
-    icon: "UtensilsCrossed",
-    color: "#E67E22",
-  },
-  { name: "Funzone", slug: "funzone", icon: "PartyPopper", color: "#F39C12" },
-  { name: "Gym", slug: "gym", icon: "Dumbbell", color: "#2ECC71" },
-  { name: "Influencers", slug: "influencers", icon: "Camera", color: "#9B59B6" },
-  { name: "Jobs", slug: "jobs", icon: "Briefcase", color: "#16A085" },
-  // This is the line that has been fixed (removed the "G")
-  { name: "Loan", slug: "loan", icon: "Banknote", color: "#2E86C1" },
-  { name: "Lost & Found", slug: "lost-found", icon: "Search", color: "#7D3C98" },
-  { name: "Matrimonial", slug: "matrimonial", icon: "Heart", color: "#E91E63" },
-  {
-    name: "New Openings",
-    slug: "new-openings",
-    icon: "Sparkles",
-    color: "#F1C40F",
-  },
-  {
-    name: "Preowned Vehicles",
-    slug: "preowned-vehicles",
-    icon: "Car",
-    color: "#1ABC9C",
-  },
-  { name: "Properties", slug: "properties", icon: "Home", color: "#2980B9" },
-  { name: "Sale", slug: "sale", icon: "Tag", color: "#C0392B" },
-  { name: "Schools", slug: "schools", icon: "School", color: "#27AE60" },
-  { name: "Services", slug: "services", icon: "Wrench", color: "#34495E" },
-  { name: "Social Work", slug: "social-work", icon: "HandHeart", color: "#E74C3C" },
-  { name: "Sports", slug: "sports", icon: "Trophy", color: "#F39C12" },
-  {
-    name: "Tour & Travels",
-    slug: "tour-travels",
-    icon: "Plane",
-    color: "#3498DB",
-  },
+export default function CategoriesPage() {
+ const categories = [
+  { name: "Adopt Us", slug: "adopt-us", icon: "PawPrint", color: "bg-orange-500" },
+  { name: "Blood Bank", slug: "blood-bank", icon: "Droplet", color: "bg-red-500" },
+  { name: "Doctors", slug: "doctors", icon: "Stethoscope", color: "bg-green-600" },
+  { name: "Cafes & Restaurants", slug: "cafes-restaurants", icon: "Coffee", color: "bg-amber-600" },
+  { name: "Coaching", slug: "coaching", icon: "BookOpen", color: "bg-indigo-500" },
+  { name: "Colleges", slug: "colleges", icon: "GraduationCap", color: "bg-blue-600" },
+  { name: "Emergency Services", slug: "emergency-services", icon: "AlertTriangle", color: "bg-red-600" },
+  { name: "Foodies Timeline", slug: "foodies-timeline", icon: "UtensilsCrossed", color: "bg-pink-600" },
+  { name: "Funzone", slug: "funzone", icon: "PartyPopper", color: "bg-yellow-500" },
+  { name: "Gym", slug: "gym", icon: "Dumbbell", color: "bg-gray-700" },
+  { name: "Influencers", slug: "influencers", icon: "Camera", color: "bg-purple-500" },
+  { name: "Jobs", slug: "jobs", icon: "BriefcaseBusiness", color: "bg-blue-500" },
+  { name: "Loan", slug: "loan", icon: "CreditCard", color: "bg-teal-500" },
+  { name: "Lost & Found", slug: "lost-and-found", icon: "Search", color: "bg-cyan-600" },
+  { name: "Matrimonial", slug: "matrimonial", icon: "Heart", color: "bg-rose-500" },
+  { name: "New Openings", slug: "new-openings", icon: "Sparkles", color: "bg-fuchsia-500" },
+  { name: "Preowned Vehicles", slug: "preowned-vehicles", icon: "Car", color: "bg-emerald-600" },
+  { name: "Properties", slug: "properties", icon: "Home", color: "bg-lime-600" },
+  { name: "Sale", slug: "sale", icon: "Tag", color: "bg-orange-600" },
+  { name: "Schools", slug: "schools", icon: "School", color: "bg-indigo-600" },
+  { name: "Services", slug: "services", icon: "Wrench", color: "bg-sky-500" },
+  { name: "Social Work", slug: "social-work", icon: "HandHeart", color: "bg-red-400" },
+  { name: "Sports", slug: "sports", icon: "Trophy", color: "bg-yellow-600" },
+  { name: "Tour & Travels", slug: "tour-travels", icon: "Plane", color: "bg-teal-600" },
 ]
 
-export default function CategoriesPage() {
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             Browse Categories
           </h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
-            Find exactly what you're looking for
-          </p>
+          <p className="text-xl text-gray-600">Find exactly what you're looking for</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 relative">
+        {/* Category Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {categories.map((category) => {
-            const LucideIcon = Icons[category.icon as keyof typeof Icons]
+            const LucideIcon = Icons[category.icon as keyof typeof Icons] as React.ElementType
 
             return (
-              <Link
+              <div
                 key={category.slug}
-                href={`/${category.slug}`}
-                className="group p-6 bg-white/70 backdrop-blur-lg border border-gray-200/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out text-center transform hover:-translate-y-2"
+                className="p-6 bg-white rounded-3xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-1 text-center cursor-pointer"
+                onClick={() => (window.location.href = `/${category.slug}`)}
               >
                 <div
-                  className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 mx-auto transition-all duration-300 ease-in-out group-hover:scale-110`}
-                  style={{ background: category.color }}
+                  className={`w-16 h-16 ${category.color} rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}
                 >
-                  {LucideIcon && React.createElement(LucideIcon, { className: "w-8 h-8 text-white" })}
-
+                  {LucideIcon && <LucideIcon className="w-8 h-8 text-white" />}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
-                  {category.name}
-                </h3>
-              </Link>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">{category.name}</h3>
+              </div>
             )
           })}
-        </div>
-
-        <div className="mt-20 md:mt-24 bg-white/70 backdrop-blur-lg rounded-3xl p-10 shadow-xl">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            Popular This Week
-          </h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              "Smartphones",
-              "Laptops",
-              "Sneakers",
-              "Headphones",
-              "Watches",
-              "Gaming Chairs",
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="px-5 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-sm font-medium transition-all duration-200 ease-in-out shadow-sm hover:shadow-lg hover:scale-105 cursor-pointer"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </div>
