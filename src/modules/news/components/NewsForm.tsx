@@ -90,10 +90,7 @@ export default function NewsForm() {
         <input id="summary" name="summary" value={formData.source} onChange={handleChange} style={inputStyles} />
       </label>
 
-      <label htmlFor="publicationDate" style={labelStyles}>
-        Publication Date
-        <input id="publicationDate" name="publicationDate" type="date" value={formData.publicationDate} onChange={handleChange} style={inputStyles} />
-      </label>
+     
 
       <button type="submit" disabled={isLoading} style={{ padding: '10px', cursor: 'pointer' }}>
         {isLoading ? "Creating..." : "Create News"}
