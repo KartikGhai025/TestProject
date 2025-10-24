@@ -134,3 +134,8 @@
 }
 
 
+/* globals.css or your main stylesheet */
+.swiper-pagination-bullet-active {
+  background-color: #3b82f6 !important; /* Tailwind blue-500 */
+  opacity: 1 !important;
+}

@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function CategoriesPage() {
  const categories = [
-  { name: "Adopt Us", slug: "adopt-us", icon: "PawPrint", color: "bg-orange-500" },
+  { name: "Adopt Us", slug: "adoptus", icon: "PawPrint", color: "bg-orange-500" },
   { name: "Blood Bank", slug: "blood-bank", icon: "Droplet", color: "bg-red-500" },
   { name: "Doctors", slug: "doctors", icon: "Stethoscope", color: "bg-green-600" },
   { name: "Cafes & Restaurants", slug: "cafes-restaurants", icon: "Coffee", color: "bg-amber-600" },
