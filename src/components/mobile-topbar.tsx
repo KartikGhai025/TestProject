@@ -1,64 +1,59 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion } from "framer-motion"
-import { Search, User, ShoppingBag } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Search, User, ShoppingBag, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-const navLinks = [
-  { href: "/home", label: "Home" },
-  { href: "/categories", label: "Categories" },
-  { href: "/stores", label: "Stores" },
-  { href: "/news", label: "News" },
-]
+} from "@/components/ui/dropdown-menu";
 
 export function MobileTopBar() {
-  const pathname = usePathname()
-  const [searchQuery, setSearchQuery] = useState("")
+  const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b">
-      {/* Top bar: logo + search + account */}
-      <div className="px-4 py-2 flex items-center justify-between">
+    <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 backdrop-blur-md border-b border-white/20 shadow-lg">
+      <div className="px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/home" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-            <ShoppingBag className="w-5 h-5 text-white" />
+        <Link href="/home" className="flex items-center gap-2">
+          <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Sparkles className="w-6 h-6 text-violet-600 relative z-10" />
           </div>
-          <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <span className="text-lg font-bold text-white drop-shadow-lg">
             ProjectMe
           </span>
         </Link>
 
-        {/* Search bar (icon only) */}
+        {/* Search Bar */}
         <div className="flex-1 mx-2 relative">
-          <Input
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/70" />
+          <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8 pr-3 py-1 w-full rounded-full border border-gray-200 focus:border-purple-400 text-sm"
+            className="pl-10 pr-3 py-2 w-full rounded-full border border-white/30 bg-white/20 backdrop-blur-md text-white placeholder-white/70 focus:outline-none focus:ring-1 focus:ring-white/50 focus:border-transparent transition"
           />
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
         </div>
 
-        {/* Account menu */}
+        {/* Account Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm" className="rounded-full p-2">
-              <User className="w-5 h-5" />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="rounded-full p-2 bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition"
+            >
+              <User className="w-5 h-5 text-white" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuContent align="end" className="w-48 bg-white/95 backdrop-blur-md">
             <DropdownMenuItem asChild>
               <Link href="/account">My Account</Link>
             </DropdownMenuItem>
@@ -67,8 +62,6 @@ export function MobileTopBar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
-     
     </div>
-  )
+  );
 }
