@@ -7,13 +7,12 @@ import { NewsData } from "../models/news.model"; // Import the data model
 // Define the initial state for the form, matching the NewsData type
 const initialState: NewsData = {
   title: "",
-  content: "",
-  author: "",
-  authorId: "",
+
+  authorName: "",
+  images: [],
   description: "",
   category: "",
-  summary: "",
-  publicationDate: "",
+    source: ""
 };
 
 export default function NewsForm() {
@@ -33,7 +32,7 @@ export default function NewsForm() {
     e.preventDefault();
     setMessage(null);
 
-    if (!formData.title || !formData.content || !formData.authorId) {
+    if (!formData.title || !formData.description || !formData.authorName) {
       setMessage({ text: "Title, Content, and Author ID are required.", type: 'error' });
       return;
     }
@@ -68,12 +67,12 @@ export default function NewsForm() {
 
       <label htmlFor="content" style={labelStyles}>
         Content*
-        <textarea id="content" name="content" value={formData.content} onChange={handleChange} style={inputStyles} required />
+        <textarea id="content" name="content" value={formData.description} onChange={handleChange} style={inputStyles} required />
       </label>
 
       <label htmlFor="authorId" style={labelStyles}>
         Author ID*
-        <input id="authorId" name="authorId" value={formData.authorId} onChange={handleChange} style={inputStyles} required />
+        <input id="authorId" name="authorId" value={formData.authorName} onChange={handleChange} style={inputStyles} required />
       </label>
 
       <label htmlFor="description" style={labelStyles}>
@@ -88,13 +87,10 @@ export default function NewsForm() {
 
       <label htmlFor="summary" style={labelStyles}>
         Summary
-        <input id="summary" name="summary" value={formData.summary} onChange={handleChange} style={inputStyles} />
+        <input id="summary" name="summary" value={formData.source} onChange={handleChange} style={inputStyles} />
       </label>
 
-      <label htmlFor="publicationDate" style={labelStyles}>
-        Publication Date
-        <input id="publicationDate" name="publicationDate" type="date" value={formData.publicationDate} onChange={handleChange} style={inputStyles} />
-      </label>
+     
 
       <button type="submit" disabled={isLoading} style={{ padding: '10px', cursor: 'pointer' }}>
         {isLoading ? "Creating..." : "Create News"}

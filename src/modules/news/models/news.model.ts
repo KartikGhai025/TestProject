@@ -2,17 +2,22 @@
 
 import type { Models } from "appwrite";
 
-// This interface represents the data you provide when CREATING a news item.
+// Data for creating a news item
 export interface NewsData {
-  title: string;
-  content: string;
-  author: string;
-  authorId: string;
-  description?: string;
-  category?: string;
-  summary?: string;
-  publicationDate?: string;
+  title: string;                  // required
+  description: string;            // required
+   authorName: string;            // required
+  tags?: string[];                // optional, max 20
+  images?: string[];              // optional, max 150
+  category: string;               // required
+  isFeatured?: boolean;           // optional, default false
+  viewsCount?: number;            // optional
+  source: string;                 // required
 }
 
-// This interface represents the full news document you GET from Appwrite.
-export interface News extends Models.Document, NewsData {}
+// Full news document from Appwrite
+export interface News extends Models.Document, NewsData {
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+}
