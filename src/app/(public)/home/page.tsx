@@ -12,9 +12,9 @@ const categories = [
 ]
 
 const featuredStores = [
-  { name: "Fresh Mart", img: "https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f" },
-  { name: "Tech Hub", img: "https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f" },
-  { name: "Fashion Point", img: "https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f" },
+  { name: "Fresh Mart", img: "https://fastly.picsum.photos/id/37/2000/1333.jpg?hmac=vpYLNsQZwU2szsZc4Uo17cW786vR0GEUVq4icaKopQI" },
+  { name: "Tech Hub", img: "https://fastly.picsum.photos/id/36/4179/2790.jpg?hmac=OCuYYm0PkDCMwxWhrtoSefG5UDir4O0XCcR2x-aSPjs" },
+  { name: "Fashion Point", img: "https://fastly.picsum.photos/id/42/3456/2304.jpg?hmac=dhQvd1Qp19zg26MEwYMnfz34eLnGv8meGk_lFNAJR3g" },
 ]
 
 const testimonials = [
@@ -23,8 +23,8 @@ const testimonials = [
 ]
 
 const blogPosts = [
-  { title: "Top 10 stores to visit this month", img: "https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f" },
-  { title: "How to shop smart online", img: "https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f" },
+  { title: "Top 10 stores to visit this month", img: "https://fastly.picsum.photos/id/57/2448/3264.jpg?hmac=ewraXYesC6HuSEAJsg3Q80bXd1GyJTxekI05Xt9YjfQ" },
+  { title: "How to shop smart online", img: "https://fastly.picsum.photos/id/58/1280/853.jpg?hmac=YO3QnOm9TpyM5DqsJjoM4CHg8oIq4cMWLpd9ALoP908" },
 ]
 
 export default function HomePage() {
@@ -44,7 +44,7 @@ export default function HomePage() {
           </Link>
         </div>
         <img
-          src="https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f"
+          src="https://fastly.picsum.photos/id/45/4592/2576.jpg?hmac=Vc7_kMYufvy96FxocZ1Zx6DR1PNsNQXF4XUw1mZ2dlc"
           alt="Hero"
           className="absolute bottom-0 right-0 w-1/3 rounded-tl-3xl hidden lg:block object-cover"
         />
@@ -85,7 +85,7 @@ export default function HomePage() {
           {[1, 2, 3, 4, 5, 6].map((deal) => (
             <div key={deal} className="bg-white rounded-2xl shadow p-6 hover:shadow-lg transition">
               <img
-                src="https://images.unsplash.com/photo-1580910051070-3f3f0eb5567f"
+                src="https://fastly.picsum.photos/id/43/1280/831.jpg?hmac=glK-rQ0ppFClW-lvjk9FqEWKog07XkOxJf6Xg_cU9LI"
                 alt="Deal"
                 className="h-40 w-full object-cover rounded-xl mb-4"
               />
