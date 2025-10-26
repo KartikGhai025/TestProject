@@ -12,19 +12,17 @@ import {
   User,
   Star,
   Calendar,
-  ChevronDown,
 } from "lucide-react"
 
 // --- Import Swiper React components ---
 import { Swiper, SwiperSlide } from "swiper/react"
 // --- Import Swiper modules ---
-import { Navigation, Pagination, A11y, Autoplay, Parallax } from "swiper/modules"
+import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules"
 
 // --- Import Swiper styles ---
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
-import "swiper/css/parallax"
 
 // --- Helper Function: Time Ago ---
 function formatTimeAgo(dateString: string): string {
@@ -67,16 +65,35 @@ function formatTimeAgo(dateString: string): string {
   }
 }
 
-// --- Fullscreen Skeleton Loading ---
+// --- Clean Skeleton Loading ---
 const NewsDetailSkeleton = () => (
-  <div className="min-h-screen bg-gray-100">
-    <div className="animate-pulse">
-      {/* Hero */}
-      <div className="h-screen bg-gray-300 relative">
-        <div className="absolute top-8 left-8 h-10 w-32 bg-gray-400 rounded-lg"></div>
-        <div className="absolute bottom-20 left-0 right-0 px-8 space-y-4">
-          <div className="h-12 bg-gray-400 rounded w-3/4"></div>
-          <div className="h-8 bg-gray-400 rounded w-1/2"></div>
+  <div className="min-h-screen bg-gray-50">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="animate-pulse space-y-8">
+        {/* Back Button */}
+        <div className="h-10 w-28 bg-gray-200 rounded-lg"></div>
+        
+        {/* Image */}
+        <div className="w-full h-96 bg-gray-200 rounded-xl"></div>
+        
+        {/* Meta Info */}
+        <div className="flex gap-4 flex-wrap">
+          <div className="h-8 w-24 bg-gray-200 rounded-full"></div>
+          <div className="h-8 w-32 bg-gray-200 rounded-full"></div>
+          <div className="h-8 w-28 bg-gray-200 rounded-full"></div>
+        </div>
+        
+        {/* Title */}
+        <div className="space-y-3">
+          <div className="h-10 bg-gray-200 rounded w-full"></div>
+          <div className="h-10 bg-gray-200 rounded w-3/4"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="space-y-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="h-4 bg-gray-200 rounded w-full"></div>
+          ))}
         </div>
       </div>
     </div>
@@ -86,7 +103,6 @@ const NewsDetailSkeleton = () => (
 // --- Main Page Component ---
 export default function NewsDetailPage() {
   const [news, setNews] = useState<News | null>(null)
-  const [showContent, setShowContent] = useState(false)
   const path = usePathname()
   const id = path.split("/").pop()!
 
@@ -98,180 +114,152 @@ export default function NewsDetailPage() {
     }
   }, [id])
 
-  const scrollToContent = () => {
-    setShowContent(true)
-    const contentElement = document.getElementById("article-content")
-    contentElement?.scrollIntoView({ behavior: "smooth" })
-  }
-
   if (!news) return <NewsDetailSkeleton />
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Fullscreen Hero Carousel */}
-      <section className="h-screen relative">
-        {news.images && news.images.length > 0 ? (
-          <Swiper
-            modules={[Navigation, Pagination, A11y, Autoplay, Parallax]}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation
-            pagination={{ 
-              clickable: true,
-              dynamicBullets: true,
-            }}
-            autoplay={{
-              delay: 6000,
-              disableOnInteraction: false,
-            }}
-            parallax={true}
-            loop={news.images.length > 1}
-            className="w-full h-full"
-          >
-            {news.images.map((img, idx) => (
-              <SwiperSlide key={idx}>
-                <div className="relative w-full h-full">
-                  {/* Image with parallax */}
-                  <div 
-                    className="absolute inset-0"
-                    data-swiper-parallax="-23%"
-                  >
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Navigation Bar */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link
+              href="/news"
+              className="flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              <span>Back</span>
+            </Link>
+            
+            <div className="flex items-center gap-4 text-sm text-gray-500">
+              <span className="flex items-center gap-1.5">
+                <Eye className="w-4 h-4" />
+                {news.viewsCount?.toLocaleString() ?? 0}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                {formatTimeAgo(news.$createdAt)}
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <article className="bg-white rounded-xl shadow-sm overflow-hidden">
+          {/* Image Carousel */}
+          {news.images && news.images.length > 0 && (
+            <div className="relative">
+              <Swiper
+                modules={[Navigation, Pagination, A11y, Autoplay]}
+                spaceBetween={0}
+                slidesPerView={1}
+                navigation
+                pagination={{ 
+                  clickable: true,
+                }}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                loop={news.images.length > 1}
+                className="w-full aspect-video"
+              >
+                {news.images.map((img, idx) => (
+                  <SwiperSlide key={idx}>
                     <img
                       src={img}
                       alt={`${news.title} - image ${idx + 1}`}
                       className="w-full h-full object-cover"
                     />
-                  </div>
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              
+              {/* Featured Badge */}
+              {news.isFeatured && (
+                <div className="absolute top-4 right-4 bg-amber-400 text-amber-900 px-3 py-1.5 rounded-full flex items-center gap-1.5 text-sm font-semibold shadow-lg z-10">
+                  <Star className="w-4 h-4 fill-current" />
+                  Featured
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-blue-600 to-purple-600"></div>
-        )}
-
-        {/* Floating Back Button */}
-        <div className="absolute top-6 left-6 z-30">
-          <Link
-            href="/news"
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/95 backdrop-blur-sm hover:bg-white text-gray-900 rounded-lg shadow-lg transition-all font-medium"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back</span>
-          </Link>
-        </div>
-
-        {/* Hero Content Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 p-8 md:p-12 lg:p-16 max-w-5xl">
-          {/* Badges */}
-          <div className="flex flex-wrap items-center gap-3 mb-6">
-            {news.category && (
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold shadow-lg">
-                <Tag className="w-4 h-4" />
-                {news.category}
-              </span>
-            )}
-            {news.isFeatured && (
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-400 text-amber-900 rounded-full text-sm font-semibold shadow-lg">
-                <Star className="w-4 h-4 fill-current" />
-                Featured
-              </span>
-            )}
-          </div>
-
-          {/* Title */}
-          <h1 
-            className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight mb-6 drop-shadow-2xl"
-            data-swiper-parallax="-300"
-          >
-            {news.title}
-          </h1>
-
-          {/* Metadata */}
-          <div 
-            className="flex flex-wrap items-center gap-4 md:gap-6 text-white/90 text-sm md:text-base mb-8"
-            data-swiper-parallax="-200"
-          >
-            {news.authorName && (
-              <span className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <User className="w-4 h-4" />
-                {news.authorName}
-              </span>
-            )}
-            <span className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-              <Clock className="w-4 h-4" />
-              {formatTimeAgo(news.$createdAt)}
-            </span>
-            <span className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-              <Eye className="w-4 h-4" />
-              {news.viewsCount?.toLocaleString() ?? 0} views
-            </span>
-          </div>
-
-          {/* Scroll Down Indicator */}
-          <button
-            onClick={scrollToContent}
-            className="flex flex-col items-center gap-2 text-white/80 hover:text-white transition-colors animate-bounce"
-          >
-            <span className="text-sm font-medium">Read Article</span>
-            <ChevronDown className="w-6 h-6" />
-          </button>
-        </div>
-      </section>
-
-      {/* Article Content Section */}
-      <section id="article-content" className="bg-white">
-        <div className="max-w-4xl mx-auto px-6 md:px-8 py-16 md:py-24">
-          {/* Author Card */}
-          {news.authorName && (
-            <div className="flex items-center gap-4 mb-12 pb-8 border-b border-gray-200">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-                {news.authorName.charAt(0).toUpperCase()}
-              </div>
-              <div>
-                <p className="text-gray-500 text-sm uppercase tracking-wide font-semibold mb-1">Written by</p>
-                <p className="text-gray-900 text-xl font-bold">{news.authorName}</p>
-                <p className="text-gray-500 text-sm">
-                  {new Date(news.$createdAt).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                </p>
-              </div>
+              )}
             </div>
           )}
 
-          {/* Article Body */}
-          <div
-            className="prose prose-xl max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mb-6 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-img:rounded-2xl prose-img:shadow-xl prose-img:my-8 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-gray-700 prose-ul:my-6 prose-ol:my-6 prose-li:my-2"
-            dangerouslySetInnerHTML={{ __html: news.description }}
-          />
-
-          {/* Bottom Stats */}
-          <div className="mt-16 pt-8 border-t border-gray-200 flex flex-wrap items-center justify-between gap-6">
-            <div className="flex items-center gap-8 text-gray-600">
-              <span className="flex items-center gap-2 text-lg">
-                <Eye className="w-6 h-6 text-blue-600" />
-                <strong className="text-gray-900">{news.viewsCount?.toLocaleString() ?? 0}</strong>
+          {/* Article Content */}
+          <div className="p-6 sm:p-8 lg:p-12">
+            {/* Category & Metadata */}
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              {news.category && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                  <Tag className="w-3.5 h-3.5" />
+                  {news.category}
+                </span>
+              )}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                <Calendar className="w-3.5 h-3.5" />
+                {new Date(news.$createdAt).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
               </span>
-              <span className="flex items-center gap-2 text-lg">
-                <Calendar className="w-6 h-6 text-green-600" />
-                {formatTimeAgo(news.$createdAt)}
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+              {news.title}
+            </h1>
+
+            {/* Author Info */}
+            {news.authorName && (
+              <div className="flex items-center gap-3 pb-6 mb-8 border-b border-gray-200">
+                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-lg">
+                  {news.authorName.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-gray-400" />
+                    <span className="text-gray-900 font-medium">{news.authorName}</span>
+                  </div>
+                  <p className="text-sm text-gray-500">Article Author</p>
+                </div>
+              </div>
+            )}
+
+            {/* Article Body */}
+            <div
+              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-img:rounded-lg prose-img:shadow-md prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic prose-ul:list-disc prose-ol:list-decimal"
+              dangerouslySetInnerHTML={{ __html: news.description }}
+            />
+          </div>
+        </article>
+
+        {/* Bottom Info Card */}
+        <div className="mt-8 bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-6 text-sm text-gray-600">
+              <span className="flex items-center gap-2">
+                <Eye className="w-5 h-5 text-blue-600" />
+                <span>
+                  <strong className="text-gray-900">{news.viewsCount?.toLocaleString() ?? 0}</strong> views
+                </span>
+              </span>
+              <span className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-green-600" />
+                <span>Published {formatTimeAgo(news.$createdAt)}</span>
               </span>
             </div>
             
             <Link
               href="/news"
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
             >
-              More Articles
+              Read More Articles
             </Link>
           </div>
         </div>
-      </section>
+      </main>
     </div>
   )
 }

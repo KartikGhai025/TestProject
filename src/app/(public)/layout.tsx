@@ -44,7 +44,7 @@ export default function RootLayout({children,
         <div className="md:hidden">
           <MobileTopBar />
         </div>
-        <main className="pt-16 md:pt-32 pb-24 md:pb-0">
+        <main className="pt-16 md:pt-0 pb-24 md:pb-0">
           {children}
         </main>
         <div className="md:hidden">

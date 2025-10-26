@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Bell, Heart, Search, User, ShoppingBag, Sparkles } from "lucide-react";
 
@@ -11,13 +11,34 @@ const navLinks = [
   { href: "/news", label: "News" },
 ];
 
-export  function DesktopNavigation() {
+export function DesktopNavigation() {
   const [activeLink, setActiveLink] = useState("/home");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const [lastScroll, setLastScroll] = useState(0);
+
+  // Hide navbar on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        setShowNav(false); // scrolling down → hide
+      } else {
+        setShowNav(true); // scrolling up → show
+      }
+      setLastScroll(currentScroll);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScroll]);
 
   return (
     <>
-      <div className="w-full fixed top-0 left-0 right-0 z-50">
+      <div
+        className={`w-full fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+          showNav ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         {/* Gradient background with blur */}
         <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 opacity-95 backdrop-blur-md"></div>
 
