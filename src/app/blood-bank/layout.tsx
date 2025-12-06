@@ -19,6 +19,7 @@ import type { Metadata } from "next"
 // import { GeistSans } from "geist/font/sans"
 // import { GeistMono } from "geist/font/mono"
 import "@/styles/globals.css"
+import { SecondaryHeader } from "@/components/layout/SecondaryHeader"
 import { DesktopNavigation } from "@/components/desktop-navigation"
 import { MobileNavigation } from "@/components/mobile-navigation"
 import { MobileTopBar } from "@/components/mobile-topbar"
@@ -39,6 +40,7 @@ export default function RootLayout({children,
    
     
         <main >
+          <SecondaryHeader />
           {children}
         </main>
 
